@@ -18,7 +18,7 @@ struct SwiftUI_AdvancedApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SignupView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
