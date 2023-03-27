@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GradientButton: View {
     
+    @State private var angle = 0.0
+    
     var gradient1: [Color] = [
         Color.init(red: 101/255, green: 134/255, blue: 1),
         Color.init(red: 1, green: 64/255, blue: 80/255),
@@ -22,7 +24,7 @@ struct GradientButton: View {
         }, label: {
             GeometryReader() { geometry in
                 ZStack {
-                    AngularGradient(gradient: Gradient(colors: gradient1), center: .center, angle: .degrees(0))
+                    AngularGradient(gradient: Gradient(colors: gradient1), center: .center, angle: .degrees(angle))
                         .blendMode(.overlay)
                         .blur(radius: 8)
                         .mask(
@@ -31,6 +33,12 @@ struct GradientButton: View {
                                 .frame(maxWidth: geometry.size.width - 16)
                                 .blur(radius: 8)
                         )
+                        .onAppear() {
+                            withAnimation(.linear(duration: 7)) {
+                                self.angle += 350
+                            }
+                        }
+                    
                     GradientText(text: "Sign up")
                         .font(.headline)
                         .frame(width: geometry.size.width - 16)
