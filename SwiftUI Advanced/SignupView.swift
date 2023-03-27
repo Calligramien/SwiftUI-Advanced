@@ -20,6 +20,7 @@ struct SignupView: View {
     @State private var showProfileView: Bool = false
     @State private var signUpToggle: Bool = true
     @State private var rotationAngle = 0.0
+    @State private var signInWithAppleObject = SignInWithAppleObject()
     
     private let generator = UISelectionFeedbackGenerator()
     
@@ -170,6 +171,18 @@ struct SignupView: View {
                                         .fontWeight(.bold)
                                 }
                             })
+                            
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(.white.opacity(0.1))
+                            
+                            Button(action: {
+                                signInWithAppleObject.signInWithApple()
+                            }, label: {
+                                SignInWithAppleButton()
+                                    .frame(height: 50)
+                                    .cornerRadius(16)
+                            })
                         }
                     })
                 }
@@ -191,9 +204,9 @@ struct SignupView: View {
                 Angle(degrees: self.rotationAngle), axis: (x: 0.0, y: 1.0, z: 0.0)
             )
         }
-        //        .fullScreenCover(isPresented: $showProfileView) {
-        //            ProfileView()
-        //        }
+        .fullScreenCover(isPresented: $showProfileView) {
+            ProfileView()
+        }
     }
     
     func signup() {
