@@ -7,8 +7,9 @@
 
 import SwiftUI
 import AudioToolbox
+import FirebaseAuth
 
-struct ContentView: View {
+struct SignupView: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
@@ -16,6 +17,7 @@ struct ContentView: View {
     @State private var editingPasswordTextfield: Bool = false
     @State private var emailIconBounce: Bool = false
     @State private var passwordIconBounce: Bool = false
+    @State private var showProfileView: Bool = false
     
     private let generator = UISelectionFeedbackGenerator()
     
@@ -59,7 +61,7 @@ struct ContentView: View {
                         }
                         .preferredColorScheme(.dark)
                         .foregroundColor(.white.opacity(0.7))
-                        .textInputAutocapitalization(.none)
+                        .textInputAutocapitalization(.never)
                         .textContentType(.emailAddress)
                     }
                     .frame(height: 52)
@@ -112,7 +114,17 @@ struct ContentView: View {
                         }
                     }
                     
-                    GradientButton()
+                    GradientButton(buttonTitle: "Create account") {
+                        generator.selectionChanged()
+                        signup()
+                    }
+                    .onAppear {
+                        Auth.auth().addStateDidChangeListener { auth, user in
+                            if user != nil {
+                                showProfileView.toggle()
+                            }
+                        }
+                    }
                     
                     Text("By clicking on Sign up, you agree to our Terms of service and Privacy policy")
                         .font(.footnote)
@@ -150,11 +162,24 @@ struct ContentView: View {
             .cornerRadius(30)
             .padding(.horizontal)
         }
+//        .fullScreenCover(isPresented: $showProfileView) {
+//            ProfileView()
+//        }
+    }
+    
+    func signup() {
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            print("User signed up!")
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        SignupView()
     }
 }
