@@ -21,6 +21,11 @@ struct SignupView: View {
     @State private var signUpToggle: Bool = true
     @State private var rotationAngle = 0.0
     @State private var signInWithAppleObject = SignInWithAppleObject()
+    @State private var fadeToggle: Bool = true
+    
+    @State private var showAlertView: Bool = false
+    @State private var alertTitle: String = ""
+    @State private var alertMessage: String = ""
     
     private let generator = UISelectionFeedbackGenerator()
     
@@ -30,6 +35,11 @@ struct SignupView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
+                .opacity(fadeToggle ? 1.0 : 0.0)
+            
+            Color("secondaryBackground")
+                .ignoresSafeArea()
+                .opacity(fadeToggle ? 0.0 : 1.0)
             
             VStack {
                 VStack(alignment: .leading, spacing: 16)  {
@@ -141,6 +151,15 @@ struct SignupView: View {
                     
                     VStack(alignment: .leading, spacing: 16, content: {
                         Button(action: {
+                            withAnimation(.easeInOut(duration: 0.35)) {
+                                fadeToggle.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        self.fadeToggle.toggle()
+                                    }
+                                }
+                            }
+                            
                             withAnimation(.easeInOut(duration: 0.7)) {
                                 signUpToggle.toggle()
                                 self.rotationAngle += 180
@@ -159,7 +178,7 @@ struct SignupView: View {
                         
                         if !signUpToggle {
                             Button(action : {
-                                print("Send reset password email")
+                                sendPasswordResetEmail()
                             }, label: {
                                 HStack(spacing: 4) {
                                     Text("Forgot password?")
@@ -203,29 +222,49 @@ struct SignupView: View {
             .rotation3DEffect(
                 Angle(degrees: self.rotationAngle), axis: (x: 0.0, y: 1.0, z: 0.0)
             )
+            .alert(isPresented: $showAlertView) {
+                Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .cancel())
+            }
         }
-        .fullScreenCover(isPresented: $showProfileView) {
-            ProfileView()
-        }
+//        .fullScreenCover(isPresented: $showProfileView) {
+//            ProfileView()
+//        }
     }
     
     func signup() {
         if signUpToggle {
             Auth.auth().createUser(withEmail: email, password: password) { result, error in
                 guard error == nil else {
-                    print(error!.localizedDescription)
+                    self.alertTitle = "Uh-oh!"
+                    self.alertMessage = (error!.localizedDescription)
+                    self.showAlertView.toggle()
                     return
                 }
-                print("User signed up!")
             }
         } else {
             Auth.auth().signIn(withEmail: email, password: password) { result, error in
                 guard error == nil else {
-                    print(error!.localizedDescription)
+                    alertTitle = "Uh-oh!"
+                    alertMessage = (error!.localizedDescription)
+                    showAlertView.toggle()
                     return
                 }
-                print("User is signed in")
             }
+        }
+    }
+    
+    func sendPasswordResetEmail() {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            guard error == nil else {
+                alertTitle = "Uh-oh!"
+                alertMessage = (error!.localizedDescription)
+                showAlertView.toggle()
+                print(error!.localizedDescription)
+                return
+            }
+            alertTitle = "Password reset email sent"
+            alertMessage = "Check your inbox for an email to reset your password"
+            showAlertView.toggle()
         }
     }
     
