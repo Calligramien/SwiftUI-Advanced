@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Firebase
+import RevenueCat
+
 
 @main
 struct SwiftUI_AdvancedApp: App {
@@ -14,6 +16,8 @@ struct SwiftUI_AdvancedApp: App {
 
     init() {
         FirebaseApp.configure()
+        Purchases.configure(withAPIKey: "appl_PQyGHWmbPoNstzJfEWYxhuDaEQC")
+        Purchases.logLevel = .debug
     }
     
     var body: some Scene {

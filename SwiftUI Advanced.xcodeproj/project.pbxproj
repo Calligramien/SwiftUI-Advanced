@@ -21,8 +21,10 @@
 		A95AD1CE29D1BBBC0031D69D /* GradientText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95AD1CD29D1BBBC0031D69D /* GradientText.swift */; };
 		A95AD1D029D1BC160031D69D /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95AD1CF29D1BC160031D69D /* GradientButton.swift */; };
 		A95AD1D229D1BC380031D69D /* TextfieldIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95AD1D129D1BC380031D69D /* TextfieldIcon.swift */; };
+		A99686FD29D33C5800423D6A /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = A99686FC29D33C5800423D6A /* RevenueCat */; };
 		A9CB90AD29D1EF33008B427D /* SignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CB90AC29D1EF33008B427D /* SignInWithAppleButton.swift */; };
 		A9CB90B029D1F116008B427D /* SignInWithAppleObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CB90AF29D1F116008B427D /* SignInWithAppleObject.swift */; };
+		A9DCA6EE29D47DED00895B68 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9DCA6ED29D47DED00895B68 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,7 @@
 		A9CB90AC29D1EF33008B427D /* SignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButton.swift; sourceTree = "<group>"; };
 		A9CB90AE29D1F0D7008B427D /* SwiftUI Advanced.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SwiftUI Advanced.entitlements"; sourceTree = "<group>"; };
 		A9CB90AF29D1F116008B427D /* SignInWithAppleObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleObject.swift; sourceTree = "<group>"; };
+		A9DCA6ED29D47DED00895B68 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9DCA6EE29D47DED00895B68 /* StoreKit.framework in Frameworks */,
+				A99686FD29D33C5800423D6A /* RevenueCat in Frameworks */,
 				A957C3C629D1D40F00C7ABAD /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +67,7 @@
 			children = (
 				A95AD1B229D19C340031D69D /* SwiftUI Advanced */,
 				A95AD1B129D19C340031D69D /* Products */,
+				A9DCA6EC29D47DED00895B68 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,6 +126,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		A9DCA6EC29D47DED00895B68 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9DCA6ED29D47DED00895B68 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,6 +152,7 @@
 			name = "SwiftUI Advanced";
 			packageProductDependencies = (
 				A957C3C529D1D40F00C7ABAD /* FirebaseAuth */,
+				A99686FC29D33C5800423D6A /* RevenueCat */,
 			);
 			productName = "SwiftUI Advanced";
 			productReference = A95AD1B029D19C340031D69D /* SwiftUI Advanced.app */;
@@ -169,6 +184,7 @@
 			mainGroup = A95AD1A729D19C340031D69D;
 			packageReferences = (
 				A957C3C429D1D40E00C7ABAD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A99686FB29D33C5800423D6A /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = A95AD1B129D19C340031D69D /* Products */;
 			projectDirPath = "";
@@ -339,9 +355,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI Advanced/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BUR8WU2V7M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Damien Gautier";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -371,9 +388,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI Advanced/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BUR8WU2V7M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Damien Gautier";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -425,6 +443,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		A99686FB29D33C5800423D6A /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -432,6 +458,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A957C3C429D1D40E00C7ABAD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		A99686FC29D33C5800423D6A /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A99686FB29D33C5800423D6A /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
 		};
 /* End XCSwiftPackageProductDependency section */
 
