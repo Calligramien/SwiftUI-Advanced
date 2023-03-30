@@ -7,11 +7,17 @@
 
 import SwiftUI
 import RevenueCat
+import FirebaseAuth
 
 struct ProfileView: View {
     
     @State private var showLoader: Bool = false
     @State private var iapButtonTitle = "Purchase Lifetime Pro Plan"
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var showAlertView: Bool = false
+    @State private var alertTitle: String = ""
+    @State private var alertMessage: String = ""
     
     var body: some View {
         ZStack {
@@ -23,19 +29,22 @@ struct ProfileView: View {
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(spacing: 16) {
-                        ZStack {
-                            Circle()
-                                .foregroundColor(Color("pink-gradient-1"))
-                                .frame(width: 66, height: 66, alignment: .center)
-                            
-                            Image(systemName: "person.fill")
-                                .foregroundColor(.white)
-                                .font(.system(size: 25, weight: .medium, design: .rounded))
-                        }
-                        .frame(width: 66, height: 66, alignment: .center)
+                        //                        ZStack {
+                        //                            Circle()
+                        //                                .foregroundColor(Color("pink-gradient-1"))
+                        //                                .frame(width: 66, height: 66, alignment: .center)
+                        //
+                        //                            Image(systemName: "person.fill")
+                        //                                .foregroundColor(.white)
+                        //                                .font(.system(size: 25, weight: .medium, design: .rounded))
+                        //                        }
+                        //                        .frame(width: 66, height: 66, alignment: .center)
+                        
+                        GradientProfilePictureView(profilePicture: UIImage(named: "Profile")!)
+                            .frame(width: 66, height: 66)
                         
                         VStack(alignment: .leading) {
-                            Text("Damien")
+                            Text("Sai")
                                 .foregroundColor(.white)
                                 .font(.title2)
                                 .fontWeight(.bold)
@@ -93,17 +102,22 @@ struct ProfileView: View {
                     Purchases.shared.getOfferings { offerings, error in
                         if let packages = offerings?.current?.availablePackages {
                             Purchases.shared.purchase(package: packages.first!) { transaction, purchaserInfo, error, userCancelled in
-                                print("TRANSACTION: \(transaction)")
-                                print("PURCHASER INFO: \(purchaserInfo)")
-                                print("ERROR: \(error)")
+                                print("TRANSACTION: \(String(describing: transaction))")
+                                print("PURCHASER INFO: \(String(describing: purchaserInfo))")
+                                print("ERROR: \(String(describing: error))")
                                 print("USER CANCELLED: \(userCancelled)")
                                 
                                 if purchaserInfo?.entitlements["pro"]?.isActive == true {
                                     showLoader = false
-                                    iapButtonTitle = "Purchase Successful"
+                                    iapButtonTitle = "You are a Pro Member"
+                                    alertTitle = "Purchase Successful"
+                                    alertMessage = "You are now a Pro Member"
+                                    showAlertView.toggle()
                                 } else {
                                     showLoader = false
-                                    iapButtonTitle = "Purchase Failed"
+                                    alertTitle = "Purchase Failed"
+                                    alertMessage = "You are not a Pro Member"
+                                    showAlertView.toggle()
                                 }
                             }
                         } else {
@@ -119,15 +133,22 @@ struct ProfileView: View {
                     Purchases.shared.restorePurchases { purchaserInfo, error in
                         if let info = purchaserInfo {
                             if info.allPurchasedProductIdentifiers.contains("lifetime_pro_plan") {
-                                iapButtonTitle = "Restore Successful"
+                                iapButtonTitle = "You are a Pro Member"
+                                alertTitle = "Restore Success"
+                                alertMessage = "Your purchase has been restored and you are a Pro Member"
+                                showAlertView.toggle()
                                 showLoader = false
                             } else {
                                 showLoader = false
-                                iapButtonTitle = "No purchases Found"
+                                alertTitle = "No purchases Found"
+                                alertMessage = "Your purchase has not been restored and you are not a Pro Member"
+                                showAlertView.toggle()
                             }
                         } else {
                             showLoader = false
-                            iapButtonTitle = "Restore Failed"
+                            alertTitle = "Restore Failed"
+                            alertMessage = "Your purchase has not been restored and you are not a Pro Member"
+                            showAlertView.toggle()
                         }
                         
                     }
@@ -152,7 +173,7 @@ struct ProfileView: View {
                 Spacer()
                 
                 Button(action: {
-                    print("Sign out")
+                    signout()
                 }, label: {
                     Image(systemName: "arrow.turn.up.forward.iphone.fill")
                         .foregroundColor(.white)
@@ -180,6 +201,20 @@ struct ProfileView: View {
             }
         }
         .preferredColorScheme(.dark)
+        .alert(isPresented: $showAlertView) {
+            Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .cancel())
+        }
+    }
+    
+    func signout() {
+        do {
+            try Auth.auth().signOut()
+            dismiss()
+        } catch let error {
+            alertTitle = "Uh-Oh!"
+            alertMessage = error.localizedDescription
+            showAlertView.toggle()
+        }
     }
 }
 
