@@ -53,7 +53,7 @@ struct SignupView: View {
                         .foregroundColor(.white.opacity(0.7))
                     
                     HStack(spacing: 12) {
-                        TextfieldIcon(iconName: "envelope.open.fill", currentlyEditing: $editingEmailTextfield)
+                        TextfieldIcon(iconName: "envelope.open.fill", currentlyEditing: $editingEmailTextfield, passedImage: .constant(nil))
                             .scaleEffect(emailIconBounce ? 1.2 : 1.0)
                         
                         TextField("Email", text: $email) { isEditing in
@@ -90,7 +90,7 @@ struct SignupView: View {
                     )
                     
                     HStack(spacing: 12) {
-                        TextfieldIcon(iconName: "key.fill", currentlyEditing: $editingPasswordTextfield)
+                        TextfieldIcon(iconName: "key.fill", currentlyEditing: $editingPasswordTextfield, passedImage: .constant(nil))
                             .scaleEffect(passwordIconBounce ? 1.2 : 1.0)
                         
                         SecureField("Password", text: $password)

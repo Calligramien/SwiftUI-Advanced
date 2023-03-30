@@ -24,10 +24,107 @@ struct SettingsView: View {
     @State private var website = ""
     @State private var bio = ""
     
+    @State private var showImagePicker = false
+    @State private var inputImage: UIImage?
+    
     private let generator = UISelectionFeedbackGenerator()
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Settings")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top)
+                
+                Text("Manage your Design+Code profile and account")
+                    .foregroundColor(.white.opacity(0.7))
+                    .font(.callout)
+                
+                //Pick Photo from Gallery
+                Button {
+                    self.showImagePicker = true
+                } label: {
+                    HStack(spacing: 12) {
+                        TextfieldIcon(iconName: "person.crop.circle", currentlyEditing: .constant(false), passedImage: $inputImage)
+                        
+                        GradientText(text: "Choose photo")
+                        
+                        Spacer()
+                    }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(.white.opacity(0.1), lineWidth: 1)
+                    )
+                    .background(
+                        Color.init(red: 26/255, green: 20/255, blue: 51/255)
+                            .cornerRadius(16)
+                    )
+                }
+                
+                // Name Textfield
+                GradientTextfield(
+                    editingTextfield: $editingNameTextfield,
+                    textfieldString: $name,
+                    iconBounce: $nameIconBounce,
+                    textfieldPlaceholder: "Name",
+                    textfieldIconString: "textformat.alt"
+                )
+                .textInputAutocapitalization(.words)
+                .textContentType(.name)
+                .autocorrectionDisabled(true)
+                
+                // Twitter Handle Textfield
+                GradientTextfield(
+                    editingTextfield: $editingTwitterTextfield,
+                    textfieldString: $twitter,
+                    iconBounce: $twitterIconBounce,
+                    textfieldPlaceholder: "Twitter Handle",
+                    textfieldIconString: "at"
+                )
+                .textInputAutocapitalization(.none)
+                .keyboardType(.twitter)
+                .autocorrectionDisabled(true)
+                
+                // Website Textfield
+                GradientTextfield(
+                    editingTextfield: $editingWebsiteTextfield,
+                    textfieldString: $website,
+                    iconBounce: $websiteIconBounce,
+                    textfieldPlaceholder: "Website",
+                    textfieldIconString: "link"
+                )
+                .textInputAutocapitalization(.none)
+                .keyboardType(.webSearch)
+                .autocorrectionDisabled(true)
+                
+                // Bio Textfield
+                GradientTextfield(
+                    editingTextfield: $editingBioTextfield,
+                    textfieldString: $bio,
+                    iconBounce: $bioIconBounce,
+                    textfieldPlaceholder: "Bio",
+                    textfieldIconString: "text.justifyleft"
+                )
+                .textInputAutocapitalization(.sentences)
+                .keyboardType(.default)
+                
+                GradientButton(buttonTitle: "Save settings") {
+                    //Save changes to Core Data
+                    generator.selectionChanged()
+                }
+                
+                Spacer()
+            }
+            .padding()
+            
+            Spacer()
+        }
+        .background(Color("settingsBackground").ignoresSafeArea())
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: self.$inputImage)
+        }
     }
 }
 
