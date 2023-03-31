@@ -13,7 +13,7 @@ struct PersistenceController {
     let container: NSPersistentCloudKitContainer
     
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "SwiftUI_Advanced")
+        container = NSPersistentCloudKitContainer(name: "Advanced_SwiftUI")
         container.viewContext.automaticallyMergesChangesFromParent = true
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
