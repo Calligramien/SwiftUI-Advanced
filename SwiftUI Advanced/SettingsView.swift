@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CoreData
+import FirebaseAuth
 
 struct SettingsView: View {
     
@@ -26,6 +28,15 @@ struct SettingsView: View {
     
     @State private var showImagePicker = false
     @State private var inputImage: UIImage?
+    
+    @State private var showAlertView: Bool = false
+    @State private var alertTitle: String = ""
+    @State private var alertMessage: String = ""
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.userSince, ascending: true)],
+                  predicate: NSPredicate(format: "userID == %@", Auth.auth().currentUser!.uid), animation: .default) private var savecAccounts: FetchedResults<Account>
+    @State private var currentAccount: Account?
     
     private let generator = UISelectionFeedbackGenerator()
     
@@ -113,6 +124,29 @@ struct SettingsView: View {
                 GradientButton(buttonTitle: "Save settings") {
                     //Save changes to Core Data
                     generator.selectionChanged()
+                    
+                    currentAccount?.profileImage = self.inputImage?.pngData()
+                    currentAccount?.name = self.name
+                    currentAccount?.twitterHandle = self.twitter
+                    currentAccount?.website = self.website
+                    currentAccount?.bio = self.bio
+                    
+                    do {
+                        try viewContext.save()
+                        
+                        // Present alert
+                        alertTitle = "Settings Saved!"
+                        alertMessage = "Your changes has been saved"
+                        showAlertView.toggle()
+                    } catch let error {
+                        
+                        // Present error
+                        alertTitle = "Uh-Oh!"
+                        alertMessage = error.localizedDescription
+                        showAlertView.toggle()
+                        
+                    }
+                    
                 }
                 
                 Spacer()
@@ -125,6 +159,18 @@ struct SettingsView: View {
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: self.$inputImage)
         }
+        .onAppear() {
+            currentAccount = savecAccounts.first!
+            self.inputImage = UIImage(data: currentAccount?.profileImage ?? Data())
+            self.name = currentAccount?.name ?? ""
+            self.twitter = currentAccount?.twitterHandle ?? ""
+            self.website = currentAccount?.website ?? ""
+            self.bio = currentAccount?.bio ?? ""
+        }
+        .alert(isPresented: $showAlertView, content: {
+            Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .cancel())
+            
+        })
     }
 }
 
