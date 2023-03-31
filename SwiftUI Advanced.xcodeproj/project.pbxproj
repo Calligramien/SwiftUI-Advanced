@@ -15,7 +15,6 @@
 		A95AD1B829D19C350031D69D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A95AD1B729D19C350031D69D /* Assets.xcassets */; };
 		A95AD1BB29D19C350031D69D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A95AD1BA29D19C350031D69D /* Preview Assets.xcassets */; };
 		A95AD1BD29D19C350031D69D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95AD1BC29D19C350031D69D /* Persistence.swift */; };
-		A95AD1C029D19C350031D69D /* SwiftUI_Advanced.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A95AD1BE29D19C350031D69D /* SwiftUI_Advanced.xcdatamodeld */; };
 		A95AD1C829D19F370031D69D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95AD1C729D19F370031D69D /* ImagePicker.swift */; };
 		A95AD1CB29D19F5B0031D69D /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95AD1CA29D19F5B0031D69D /* VisualEffectBlur.swift */; };
 		A95AD1CE29D1BBBC0031D69D /* GradientText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95AD1CD29D1BBBC0031D69D /* GradientText.swift */; };
@@ -39,12 +38,12 @@
 		A95AD1B729D19C350031D69D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A95AD1BA29D19C350031D69D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A95AD1BC29D19C350031D69D /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		A95AD1BF29D19C350031D69D /* SwiftUI_Advanced.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftUI_Advanced.xcdatamodel; sourceTree = "<group>"; };
 		A95AD1C729D19F370031D69D /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A95AD1CA29D19F5B0031D69D /* VisualEffectBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		A95AD1CD29D1BBBC0031D69D /* GradientText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientText.swift; sourceTree = "<group>"; };
 		A95AD1CF29D1BC160031D69D /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		A95AD1D129D1BC380031D69D /* TextfieldIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldIcon.swift; sourceTree = "<group>"; };
+		A97442B329D6E46B00C71A4E /* SwiftUI-Advanced-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SwiftUI-Advanced-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A9B2302929D5CD740075F9C6 /* GradientProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProfilePictureView.swift; sourceTree = "<group>"; };
 		A9B2302B29D5D6DD0075F9C6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A9B2302D29D5D8A30075F9C6 /* GradientTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientTextfield.swift; sourceTree = "<group>"; };
@@ -88,6 +87,7 @@
 		A95AD1B229D19C340031D69D /* SwiftUI Advanced */ = {
 			isa = PBXGroup;
 			children = (
+				A97442B329D6E46B00C71A4E /* SwiftUI-Advanced-Info.plist */,
 				A9CB90AE29D1F0D7008B427D /* SwiftUI Advanced.entitlements */,
 				A95AD1C929D19F4C0031D69D /* Helpers */,
 				A95AD1B329D19C340031D69D /* SwiftUI_AdvancedApp.swift */,
@@ -98,7 +98,6 @@
 				A95AD1B729D19C350031D69D /* Assets.xcassets */,
 				A957C3C929D1D60A00C7ABAD /* GoogleService-Info.plist */,
 				A95AD1BC29D19C350031D69D /* Persistence.swift */,
-				A95AD1BE29D19C350031D69D /* SwiftUI_Advanced.xcdatamodeld */,
 				A95AD1B929D19C350031D69D /* Preview Content */,
 			);
 			path = "SwiftUI Advanced";
@@ -231,7 +230,6 @@
 				A95AD1D229D1BC380031D69D /* TextfieldIcon.swift in Sources */,
 				A9B2302A29D5CD740075F9C6 /* GradientProfilePictureView.swift in Sources */,
 				A9B2302C29D5D6DD0075F9C6 /* SettingsView.swift in Sources */,
-				A95AD1C029D19C350031D69D /* SwiftUI_Advanced.xcdatamodeld in Sources */,
 				A95AD1C829D19F370031D69D /* ImagePicker.swift in Sources */,
 				A95AD1CB29D19F5B0031D69D /* VisualEffectBlur.swift in Sources */,
 				A9CB90AD29D1EF33008B427D /* SignInWithAppleButton.swift in Sources */,
@@ -370,6 +368,7 @@
 				DEVELOPMENT_TEAM = BUR8WU2V7M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SwiftUI-Advanced-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SwiftUI Advanced";
 				"INFOPLIST_KEY_CFBundleDisplayName[sdk=iphoneos*]" = "SwiftUI Advanced";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -405,6 +404,7 @@
 				DEVELOPMENT_TEAM = BUR8WU2V7M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SwiftUI-Advanced-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SwiftUI Advanced";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -480,19 +480,6 @@
 			productName = RevenueCat;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		A95AD1BE29D19C350031D69D /* SwiftUI_Advanced.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				A95AD1BF29D19C350031D69D /* SwiftUI_Advanced.xcdatamodel */,
-			);
-			currentVersion = A95AD1BF29D19C350031D69D /* SwiftUI_Advanced.xcdatamodel */;
-			path = SwiftUI_Advanced.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = A95AD1A829D19C340031D69D /* Project object */;
 }
