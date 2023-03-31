@@ -27,6 +27,9 @@ struct SignupView: View {
     @State private var alertTitle: String = ""
     @State private var alertMessage: String = ""
     
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.userSince, ascending: true)], animation: .default) private var savedAccounts: FetchedResults<Account>
+    
     private let generator = UISelectionFeedbackGenerator()
     
     var body: some View {
@@ -133,8 +136,32 @@ struct SignupView: View {
                     }
                     .onAppear {
                         Auth.auth().addStateDidChangeListener { auth, user in
-                            if user != nil {
-                                showProfileView.toggle()
+                            if let currentUser = user {
+                                if savedAccounts.count == 0 {
+                                    // Add data to Core Data
+                                    let userDataToSave = Account(context: viewContext)
+                                    userDataToSave.name = currentUser.displayName
+                                    userDataToSave.bio = nil
+                                    userDataToSave.userID = currentUser.uid
+                                    userDataToSave.numberOfCertificates = 0
+                                    userDataToSave.proMember = false
+                                    userDataToSave.twitterHandle = nil
+                                    userDataToSave.website = nil
+                                    userDataToSave.profileImage = nil
+                                    userDataToSave.userSince = Date()
+                                    do {
+                                        try viewContext.save()
+                                        DispatchQueue.main.async {
+                                            showProfileView.toggle()
+                                        }
+                                    } catch let error {
+                                        alertTitle = "Could not create an account"
+                                        alertMessage = error.localizedDescription
+                                        showAlertView.toggle()
+                                    }
+                                } else {
+                                    showProfileView.toggle()
+                                }
                             }
                         }
                     }

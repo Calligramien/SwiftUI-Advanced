@@ -10,7 +10,7 @@
 	</array>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
-		<string>iCloud.co.damiengautier.SwiftUI-Advanced</string>
+		<string>iCloud.advanced-swiftui-test</string>
 	</array>
 	<key>com.apple.developer.icloud-services</key>
 	<array>
